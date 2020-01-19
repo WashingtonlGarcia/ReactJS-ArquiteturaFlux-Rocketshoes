@@ -20,6 +20,17 @@ export default function cart(state = [], action) {
         }
       });
     }
+    case '@cart/UPDATE': {
+      return produce(state, draft => {
+        if (action.amount <= 0) {
+          return state;
+        }
+        const productIndex = draft.findIndex(p => p.id === action.id);
+        if (productIndex >= 0) {
+          draft[productIndex].amount = Number(action.amount);
+        }
+      });
+    }
     default: {
       return state;
     }
